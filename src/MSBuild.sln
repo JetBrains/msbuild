@@ -811,7 +811,7 @@ Global
 		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release|x64.Build.0 = Release|x64
 		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release|x86.ActiveCfg = Release|x86
 		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release|x86.Build.0 = Release|x86
-		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Apartment(System.Threading.ApartmentState.STA)|Any CPU
+		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release-Jet|Any CPU.ActiveCfg = Release-Jet|Any CPU
 		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release-Jet|Any CPU.Build.0 = Release-Jet|Any CPU
 		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release-Jet|x64.ActiveCfg = Release-Jet|x64
 		{5274C277-F122-4A44-B7A0-00A1B3F39803}.Release-Jet|x64.Build.0 = Release-Jet|x64
