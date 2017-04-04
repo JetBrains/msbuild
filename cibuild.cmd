@@ -35,6 +35,8 @@ if /i "%TARGET%"=="CoreCLR" (
     set BUILD_CONFIGURATION=Debug-NetCore
 ) else if /i "%TARGET%"=="Full" (
     set BUILD_CONFIGURATION=Debug
+) else if /i "%TARGET%"=="Jet" (
+    set BUILD_CONFIGURATION=Release-Jet
 ) else if /i "%TARGET%"=="All" (
     SET _originalArguments=%*
     CALL "!_originalScript!" !_originalArguments:All=Full!
