@@ -163,6 +163,9 @@
     <DebugSymbols Condition="'$(DebugSymbols)' == ''">true</DebugSymbols>
     <Optimize Condition="'$(Optimize)' == ''">true</Optimize>
     <DebugType Condition="'$(DebugType)' == ''">pdbonly</DebugType>
+    <FullFrameworkBuild>true</FullFrameworkBuild>
+    <PlatformSpecificBuild>true</PlatformSpecificBuild>
+    <Platform>x64</Platform>
     <JetBuild>true</JetBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug-NetCore'">
