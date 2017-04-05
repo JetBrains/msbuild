@@ -292,7 +292,8 @@
     <DefineConstants>$(DefineConstants);FEATURE_DOTNETVERSION</DefineConstants>
     <DefineConstants Condition="'$(MonoBuild)' != 'true' and '$(JetBuild)' != 'true'">$(DefineConstants);FEATURE_ENCODING_DEFAULT</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_ENVIRONMENT_SYSTEMDIRECTORY</DefineConstants>
-    <DefineConstants Condition="'$(MonoBuild)' != 'true' and '$(JetBuild)' != 'true'">$(DefineConstants);FEATURE_FILE_TRACKER</DefineConstants>
+    <!-- We should enable FileTracker feature for incremental build C++ on Windows -->
+    <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_FILE_TRACKER</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_FUSION_COMPAREASSEMBLYIDENTITY</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_GAC</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_GET_COMMANDLINE</DefineConstants>
