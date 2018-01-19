@@ -167,6 +167,25 @@
     <DebugType Condition="'$(DebugType)' == ''">embedded</DebugType>
     <NetCoreBuild>true</NetCoreBuild>
   </PropertyGroup>
+  <!-- Configuration MSBuild for portable (xcopy-install) toolsets: works on WinNT and linux/mac via Mono, isolates from machine environment:
+       uses only tools installed with it, ignores Registry and GAC and Visual Studio installations to provide the same build experience on all machines -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug-MachineIndependent'">
+    <DebugSymbols Condition="'$(DebugSymbols)' == ''">true</DebugSymbols>
+    <Optimize Condition="'$(Optimize)' == ''">false</Optimize>
+    <DebugType Condition="'$(DebugType)' == ''">embedded</DebugType>
+    <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+    <FullFrameworkBuild>true</FullFrameworkBuild>
+    <MachineIndependentBuild>true</MachineIndependentBuild>
+    <MsbuildDebugger>true</MsbuildDebugger>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release-MachineIndependent'">
+    <DebugSymbols Condition="'$(DebugSymbols)' == ''">true</DebugSymbols>
+    <Optimize Condition="'$(Optimize)' == ''">true</Optimize>
+    <DebugType Condition="'$(DebugType)' == ''">embedded</DebugType>
+    <FullFrameworkBuild>true</FullFrameworkBuild>
+    <MachineIndependentBuild>true</MachineIndependentBuild>
+    <MsbuildDebugger>true</MsbuildDebugger>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsTestProject)' != 'true' And '$(DebugType)' != 'full'">
     <SourceLinkCreate>true</SourceLinkCreate>
@@ -286,17 +305,17 @@
     <DefineConstants>$(DefineConstants);FEATURE_CULTUREINFO_GETCULTUREINFO</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_CULTUREINFO_GETCULTURES</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_DOTNETVERSION</DefineConstants>
-    <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_ENCODING_DEFAULT</DefineConstants>
+    <DefineConstants Condition="'$(MonoBuild)' != 'true' and '$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_ENCODING_DEFAULT</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_ENVIRONMENT_SYSTEMDIRECTORY</DefineConstants>
-    <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_FILE_TRACKER</DefineConstants>
+    <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_FILE_TRACKER</DefineConstants> <!-- We should not disable FileTracker feature in MachineIndependentBuild to support incremental build C++ on Windows -->
     <DefineConstants>$(DefineConstants);FEATURE_FUSION_COMPAREASSEMBLYIDENTITY</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_GAC</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_GAC</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_GET_COMMANDLINE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_HANDLE_SAFEWAITHANDLE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_HANDLEPROCESSCORRUPTEDSTATEEXCEPTIONS</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_HANDLEREF</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_HTTP_LISTENER</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_INSTALLED_MSBUILD</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_INSTALLED_MSBUILD</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_LEGACY_GETFULLPATH</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_MEMORYSTREAM_GETBUFFER</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_NAMED_PIPES_FULL_DUPLEX</DefineConstants>
@@ -305,9 +324,9 @@
     <DefineConstants>$(DefineConstants);FEATURE_PIPE_SECURITY</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_PFX_SIGNING</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_REFLECTION_EMIT_DEBUG_INFO</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_REGISTRY_TOOLSETS</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_REGISTRY_SDKS</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_REGISTRYHIVE_DYNDATA</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_REGISTRY_TOOLSETS</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_REGISTRY_SDKS</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_REGISTRYHIVE_DYNDATA</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_RESGEN</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_RESOURCE_EXPOSURE</DefineConstants>
     <!-- System.Resources.ResourceManager.GetResourceSet() method is currently only in full framework -->
@@ -315,7 +334,7 @@
     <DefineConstants>$(DefineConstants);FEATURE_RESX_RESOURCE_READER</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_RUN_EXE_IN_TESTS</DefineConstants>
     <DefineConstants Condition="'$(MonoBuild)' == 'true'">$(DefineConstants);USE_MSBUILD_DLL_EXTN</DefineConstants>
-    <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_SECURITY_PERMISSIONS</DefineConstants>
+    <DefineConstants Condition="'$(MonoBuild)' != 'true' and '$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_SECURITY_PERMISSIONS</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_SECURITY_PRINCIPAL_WINDOWS</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_SPECIAL_FOLDERS</DefineConstants>
     <FeatureSpecialFolders>true</FeatureSpecialFolders>
@@ -330,7 +349,7 @@
     <DefineConstants>$(DefineConstants);FEATURE_THREAD_CULTURE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_THREAD_PRIORITY</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_MULTIPLE_TOOLSETS</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_NODE_REUSE</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_NODE_REUSE</DefineConstants> <!-- don't reuse with machine-installed msbuilds -->
     <DefineConstants>$(DefineConstants);FEATURE_TYPE_INVOKEMEMBER</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_TYPE_GETINTERFACE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_USERINTERACTIVE</DefineConstants>
@@ -345,9 +364,9 @@
     <DefineConstants>$(DefineConstants);FEATURE_XMLTEXTREADER</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_DEBUGGER</DefineConstants>
     <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_DEBUG_LAUNCH</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_WIN32_REGISTRY</DefineConstants>
+    <DefineConstants Condition="'$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_WIN32_REGISTRY</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_WORKINGSET</DefineConstants>
-    <DefineConstants Condition="'$(MonoBuild)' != 'true'">$(DefineConstants);FEATURE_VISUALSTUDIOSETUP</DefineConstants>
+    <DefineConstants Condition="'$(MonoBuild)' != 'true' and '$(MachineIndependentBuild)' != 'true'">$(DefineConstants);FEATURE_VISUALSTUDIOSETUP</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_MSCOREE</DefineConstants>
   </PropertyGroup>
 

@@ -48,6 +48,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-MONO|AnyCPU'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-MONO|x86'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-MONO|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|x86'" />
   <ItemGroup Condition="$(TargetFrameworkIdentifier) != '.NETFramework'">
     <Compile Include="..\Shared\Compat\SerializableAttribute.cs">
       <Link>Compat\SerializableAttribute.cs</Link>

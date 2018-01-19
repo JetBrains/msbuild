@@ -50,6 +50,8 @@ if /i "%TARGET%"=="CoreCLR" (
     set BUILD_CONFIGURATION=%BASE_CONFIG%-NetCore
 ) else if /i "%TARGET%"=="Full" (
     set BUILD_CONFIGURATION=%BASE_CONFIG%
+) else if /i "%TARGET%"=="MachineIndependent" (
+    set BUILD_CONFIGURATION=%BASE_CONFIG%-Jet
 ) else if /i "%TARGET%"=="All" (
     SET _originalArguments=%*
     CALL "!_originalScript!" !_originalArguments:All=Full!
