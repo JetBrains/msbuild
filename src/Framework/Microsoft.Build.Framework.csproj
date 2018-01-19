@@ -21,6 +21,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-MONO|AnyCPU'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-MONO|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|x86'" />
   <ItemGroup>
     <Compile Include="..\Shared\Constants.cs">
       <Link>Constants.cs</Link>

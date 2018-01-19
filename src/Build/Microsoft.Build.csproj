@@ -39,6 +39,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-MONO|AnyCPU'">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-MONO|AnyCPU'">
+  </PropertyGroup>  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|AnyCPU'">
+    <DefineConstants>$(DefineConstants);BUILD_ENGINE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|x64'">
+    <DefineConstants>$(DefineConstants);BUILD_ENGINE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MachineIndependent|x86'">
+    <DefineConstants>$(DefineConstants);BUILD_ENGINE</DefineConstants>
   </PropertyGroup>
   <!-- This item group is for classes that exist in .NET Framework but not in .NET Core.
        The code here was generally copied from the .NET Framework reference source and
