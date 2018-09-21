@@ -291,7 +291,11 @@ function Build {
     $env:ArtifactsDir = Join-Path $ArtifactsDir "2\"
 
     $msbuildArgs = AddLogCmd "BuildWithBootstrap" $commonMSBuildArgs
-
+    if ($configuration -eq "MachineIndependent")
+    {
+      $SDK40ToolsPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Microsoft SDKs\NETFXSDK\4.6.1\WinSDK-NetFx40Tools-x86').InstallationFolder | Out-String
+      $msbuildArgs += "/p:SDK40ToolsPath=`"" + $SDK40ToolsPath.Trim() + "`""
+    }
     # When using bootstrapped MSBuild:
     # - Turn off node reuse (so that bootstrapped MSBuild processes don't stay running and lock files)
     # - Don't sign
