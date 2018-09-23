@@ -236,7 +236,7 @@ function Build {
     $solution = Join-Path $RepoRoot "MSBuild.sln"
   }
 
-  $commonMSBuildArgs = "/m", "/clp:Summary", "/v:$verbosity", "/p:Configuration=$configuration", "/p:Projects=$solution", "/p:CIBuild=$ci", "/p:RepoRoot=$reporoot"
+  $commonMSBuildArgs = "/m", "/clp:Summary", "/v:$verbosity", "/p:Configuration=$configuration", "/p:Projects=`"$solution`"", "/p:CIBuild=$ci", "/p:RepoRoot=`"$RepoRoot\`""
   if ($ci)
   {
     # Only enable warnaserror on CI runs.  For local builds, we will generate a warning if we can't run EditBin because
@@ -265,7 +265,7 @@ function Build {
 
   $msbuildArgs = AddLogCmd "Build" $commonMSBuildArgs
 
-  CallMSBuild $RepoToolsetBuildProj @msbuildArgs /p:Restore=$restore /p:Build=$build /p:Rebuild=$rebuild /p:Test=$testStage0 /p:Sign=$sign /p:Pack=$pack /p:CreateBootstrap=true @properties
+    CallMSBuild `"$RepoToolsetBuildProj`" @msbuildArgs /p:Restore=$restore /p:Build=$build /p:Rebuild=$rebuild /p:Test=$testStage0 /p:Sign=$sign /p:Pack=$pack /p:CreateBootstrap=true @properties
 
   if (-not $bootstrapOnly)
   {
@@ -302,7 +302,7 @@ function Build {
     # - Don't pack
     # - Do run tests (if not skipped)
     # - Don't try to create a bootstrap deployment
-    CallMSBuild $RepoToolsetBuildProj @msbuildArgs /nr:false /p:Restore=$restore /p:Build=$build /p:Rebuild=$rebuild /p:Test=$runTests /p:Sign=false /p:Pack=false /p:CreateBootstrap=false @properties
+      CallMSBuild `"$RepoToolsetBuildProj`" @msbuildArgs /nr:false /p:Restore=$restore /p:Build=$build /p:Rebuild=$rebuild /p:Test=$runTests /p:Sign=false /p:Pack=false /p:CreateBootstrap=false @properties
   }
   
   if ($ci)
@@ -374,6 +374,7 @@ if ($help -or (($properties -ne $null) -and ($properties.Contains("/help") -or $
 
 $RepoRoot = Join-Path $PSScriptRoot "..\"
 $RepoRoot = [System.IO.Path]::GetFullPath($RepoRoot);
+
 $ArtifactsDir = Join-Path $RepoRoot "artifacts"
 $ArtifactsConfigurationDir = Join-Path $ArtifactsDir $configuration
 $LogDir = Join-Path $ArtifactsConfigurationDir "log"
