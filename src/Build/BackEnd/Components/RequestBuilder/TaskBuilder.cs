@@ -997,7 +997,7 @@ namespace Microsoft.Build.BackEnd
 
             var projectReferenceItems = _taskExecutionHost.ProjectInstance.GetItems(ItemTypeNames.ProjectReference);
 
-            var declaredProjects = new HashSet<string>(projectReferenceItems.Count);
+            var declaredProjects = new HashSet<string>();
 
             foreach (var projectReferenceItem in projectReferenceItems)
             {
