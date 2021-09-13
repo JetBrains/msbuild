@@ -370,7 +370,7 @@ function InitializeVisualStudioMSBuild([bool]$install, [object]$vsRequirements =
     }
   }
 
-  $msbuildVersionDir = if ([int]$vsMajorVersion -lt 16) { "$vsMajorVersion.0" } else { "Current" }
+  $msbuildVersionDir = "Current"
 
   $local:BinFolder = Join-Path $vsInstallDir "MSBuild\$msbuildVersionDir\Bin"
   $local:Prefer64bit = if (Get-Member -InputObject $vsRequirements -Name 'Prefer64bit') { $vsRequirements.Prefer64bit } else { $false }
