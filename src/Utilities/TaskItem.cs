@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-#if FEATURE_SECURITY_PERMISSIONS
+#if FEATURE_SECURITY_PERMISSIONS || FEATURE_APPDOMAIN
 using System.Security;
 #endif
 
