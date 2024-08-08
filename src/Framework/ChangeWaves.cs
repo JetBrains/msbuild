@@ -203,5 +203,6 @@ namespace Microsoft.Build.Framework
                 version = null;
                 return false;
             }
+        }
     }
 }
