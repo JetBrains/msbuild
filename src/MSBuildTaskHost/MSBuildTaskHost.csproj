@@ -250,9 +250,5 @@
     <!-- Disabled PdbGit because of warnings; it could/should be brought back.
     <PackageReference Include="PdbGit" /> -->
     <PackageReference Include="LargeAddressAware" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 </Project>
